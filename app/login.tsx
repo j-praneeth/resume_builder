@@ -1,238 +1,103 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-// import { Link } from 'expo-router';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
-// import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Platform
+} from "react-native";
+import { useRouter } from "expo-router";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-    return (
-        <ScrollView contentContainerStyle={styles.scrollContainer} style={styles.container}>
-            <View className="flex-row justify-center items-center" style={styles.header}>
-                <Text className="text-3xl font-bold text-black" style={styles.logo}>Resu</Text>
-                <Text className="text-3xl font-bold text-[#6366f1] mt-[4px]" style={styles.logoFlex}>Next.ai</Text>
-            </View>
+  return (
+    <View className={`flex-1 bg-white p-6 ${Platform.OS==='web'?'justify-center items-center ':''}` }>
+    <View className={`${Platform.OS==='web'?'w-[600px]':''}`}>
+      <View className="mt-10 items-center w-full mb-5 flex-row justify-center">
+        <Text className="text-[28px] font-bold text-black leading-none">
+          Resu
+        </Text>
+        <Text className="text-[28px] mt-6 font-bold text-[#6366f1] leading-none">
+          Next.ai
+        </Text>
+      </View>
 
+      <View>
+      <Text className="text-xl text-black text-center mt-5">Sign In</Text>
 
-            {/* <View style={styles.header}>
-                <Text style={styles.logo}>
-                    Resu<Text style={[styles.logoFlex]}>Next.ai</Text>
-                </Text>
-            </View> */}
+      <Text className="text-base text-[#4B5563] mb-2 mt-2.5">Email</Text>
+      <TextInput
+        className="border border-[#E5E7EB] rounded-lg p-3 text-base mb-4 w-full"
+        placeholder="Enter your email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
 
-            <Text style={styles.signInText}>Sign In</Text>
+      <Text className="text-base text-[#4B5563] mb-2 mt-2.5">Password</Text>
+      <View className="flex-row items-center border border-[#E5E7EB] rounded-lg mb-4">
+        <TextInput
+          className="flex-1 p-3 text-base"
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+          autoCapitalize="none"
+        />
+        <TouchableOpacity
+          className="p-3"
+          onPress={() => setShowPassword(!showPassword)}
+        >
+          <Ionicons
+            name={showPassword ? "eye-outline" : "eye-off-outline"}
+            size={24}
+            color="#6B7280"
+          />
+        </TouchableOpacity>
+      </View>
 
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Enter your email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
+      <TouchableOpacity
+        className="bg-[#6366F1] rounded-lg p-3.5 items-center mt-2.5 w-full"
+        onPress={() => router.push("/homepage")}
+      >
+        <Text className="text-white text-base font-semibold text-center">NEXT</Text>
+      </TouchableOpacity>
+      </View>
+      <View className="flex-row items-center my-5 w-full">
+        <View className="flex-1 h-[1px] bg-[#E5E7EB]" />
+        <Text className="mx-2.5 text-[#6B7280] text-center min-w-[30px] px-1.5 text-base">Or</Text>
+        <View className="flex-1 h-[1px] bg-[#E5E7EB]" />
+      </View>
 
-            <Text style={styles.label}>Password</Text>
-            <View style={styles.passwordContainer}>
-                <TextInput
-                    style={styles.passwordInput}
-                    placeholder="Enter your password"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={!showPassword}
-                    autoCapitalize="none"
-                />
-                <TouchableOpacity
-                    style={styles.eyeIcon}
-                    onPress={() => setShowPassword(!showPassword)}
-                >
-                    <Ionicons
-                        name={showPassword ? "eye-outline" : "eye-off-outline"}
-                        size={24}
-                        color="#6B7280"
-                    />
-                </TouchableOpacity>
-            </View>
+      <View className="flex-row justify-center items-center gap-4">
+        <TouchableOpacity className="flex-row items-center justify-start border border-[#E5E7EB] rounded-lg p-3 mb-3">
+          <AntDesign name="apple1" size={24} color="black" />
+        </TouchableOpacity>
 
-            <TouchableOpacity style={styles.nextButton} onPress={() => router.push('/homepage')}>
-                <Text style={styles.nextButtonText}>NEXT</Text>
-            </TouchableOpacity>
+        <TouchableOpacity className="flex-row items-center justify-start border border-[#E5E7EB] rounded-lg p-3 mb-3">
+          <AntDesign name="google" size={24} color="#4285F4" />
+        </TouchableOpacity>
 
-            <View style={styles.divider}>
-                <View style={styles.dividerLine} />
-                <Text style={styles.dividerText}>Or</Text>
-                <View style={styles.dividerLine} />
-            </View>
+        <TouchableOpacity className="flex-row items-center justify-start border border-[#E5E7EB] rounded-lg p-3 mb-3">
+          <AntDesign name="facebook-square" size={24} color="#1877F2" />
+        </TouchableOpacity>
+      </View>
 
-
-            <TouchableOpacity style={styles.socialButton}>
-                <AntDesign name="apple1" size={24} color="black" />
-                <Text style={styles.socialButtonText}>Continue with Apple</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.socialButton}>
-                <AntDesign name="google" size={24} color="#4285F4" />
-                <Text style={styles.socialButtonText}>Continue with Google</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.socialButton}>
-                <AntDesign name="facebook-square" size={24} color="#1877F2" />
-                <Text style={styles.socialButtonText}>Continue with Facebook</Text>
-            </TouchableOpacity>
-
-            <View style={styles.accountSection}>
-                <Text style={styles.accountText}>
-                    Already have an account?{" "}
-                    <TouchableOpacity onPress={() => router.push('/signup')}>
-                        <Text style={styles.signUpLinkText}>    Sign Up</Text>
-                    </TouchableOpacity>
-                </Text>
-            </View>
-
-
-        </ScrollView>
-    );
+      <View className="flex-row justify-center items-center mt-5 pb-5 px-2.5 py-2.5">
+        <Text className="text-[#6B7280] text-base mr-1.5">
+          Already have an account?{" "}
+        </Text>
+        <TouchableOpacity onPress={() => router.push("/signup")}>
+          <Text className="text-[#6366F1] text-base font-extrabold"> Sign Up</Text>
+        </TouchableOpacity>
+      </View>
+      </View>
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    scrollContainer: {
-        padding: 20,
-        paddingBottom: 60, // Increased padding at bottom
-    },
-    header: {
-        marginTop: 40,
-        alignItems: 'center',
-        width: '100%',
-        marginBottom: 20,
-    },
-    logo: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#000',
-        includeFontPadding: false,
-        textAlignVertical: 'center',
-    },
-    logoFlex: {
-        color: '#6366F1',
-        includeFontPadding: false,
-        textAlignVertical: 'center',
-    },
-    signInText: {
-        fontSize: 20,
-        marginTop: 20,
-        color: '#000',
-        textAlign: 'center',
-    },
-    label: {
-        fontSize: 16,
-        color: '#4B5563',
-        marginBottom: 8,
-        marginTop: 10,
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#E5E7EB',
-        borderRadius: 8,
-        padding: 12,
-        fontSize: 16,
-        marginBottom: 16,
-        width: '100%',
-    },
-    passwordContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#E5E7EB',
-        borderRadius: 8,
-        marginBottom: 16,
-    },
-    passwordInput: {
-        flex: 1,
-        padding: 12,
-        fontSize: 16,
-    },
-    eyeIcon: {
-        padding: 12,
-    },
-    nextButton: {
-        backgroundColor: '#6366F1',
-        borderRadius: 8,
-        padding: 14,
-        alignItems: 'center',
-        marginTop: 10,
-        width: '100%',
-    },
-    nextButtonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: '600',
-        textAlign: 'center',
-    },
-    divider: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 20,
-        width: '100%',
-    },
-    dividerLine: {
-        flex: 1,
-        height: 1,
-        backgroundColor: '#E5E7EB',
-    },
-    dividerText: {
-        marginHorizontal: 10,
-        color: '#6B7280',
-        textAlign: 'center',
-        minWidth: 30,
-        paddingHorizontal: 5,
-        fontSize: 16
-    },
-    socialButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        borderWidth: 1,
-        borderColor: '#E5E7EB',
-        borderRadius: 8,
-        padding: 12,
-        marginBottom: 12,
-        width: '100%',
-    },
-    socialButtonText: {
-        marginLeft: 12,
-        fontSize: 16,
-        color: '#000',
-        flex: 1,
-    },
-    accountSection: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20,
-        paddingBottom: 20,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-    },
-    accountText: {
-        color: '#6B7280',
-        fontSize: 16,
-        marginRight: 6,
-    },
-    signUpLink: {
-        // Link component styles
-    },
-    signUpLinkText: {
-        color: '#6366F1',
-        fontSize: 16,
-        fontWeight: '800',
-    },
-});
