@@ -15,6 +15,36 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Store the token
+      localStorage.setItem('token', data.token);
+      
+      // Navigate to profile page
+      router.push('/homepage');
+    } catch (error) {
+      alert((error as Error).message || 'An error occurred during login');
+    }
+  };
   return (
     <View className={`flex-1 bg-white p-6 ${Platform.OS==='web'?'justify-center items-center ':''}` }>
     <View className={`${Platform.OS==='web'?'w-[600px]':''}`}>
@@ -64,7 +94,7 @@ export default function Login() {
 
       <TouchableOpacity
         className="bg-[#6366F1] rounded-lg p-3.5 items-center mt-2.5 w-full"
-        onPress={() => router.push("/homepage")}
+        onPress={() => {handleLogin()}}
       >
         <Text className="text-white text-base font-semibold text-center">NEXT</Text>
       </TouchableOpacity>

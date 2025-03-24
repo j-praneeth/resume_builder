@@ -3,7 +3,8 @@
 // export default function Index() {
 //   return <Redirect href="/Login/login" />;
 // }
-import Login from "./login"
+import HomePage from "./homepage";
+
 export default function Index() {
-  return <Login />;
+  return <HomePage />;
 }

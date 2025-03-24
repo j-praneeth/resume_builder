@@ -18,11 +18,6 @@ const userSchema = new mongoose.Schema
         enum : ['admin','user'],
         default : 'user',
     },
-    confirmpassword : {
-        type : String,
-        required : true,
-        minlength : 6,
-    },
     name : {
         type : String,
         required : true,
@@ -36,3 +31,4 @@ const userSchema = new mongoose.Schema
         
 
 })
+export default mongoose.model('User',userSchema);

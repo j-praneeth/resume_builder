@@ -26,10 +26,10 @@ export default function HomePage() {
             <Stack.Screen options={{ headerShown: false }} />
 
             {/* Header */}
-            <View className="px-6 py-6 border-b border-gray-200 flex-row justify-between items-center bg-white shadow-sm">
+            <View className="px-6 py-2 border-b border-gray-200 flex-row justify-between items-center bg-white shadow-sm">
                 <View className="flex-row">
                     <Text className="text-2xl font-bold text-black">Resu</Text>
-                    <Text className="text-2xl font-bold text-[#6366f1] mt-[2px]">Next.ai</Text>
+                    <Text className="text-2xl  font-bold text-[#6366f1] mt-[2px]">Next.ai</Text>
                 </View>
                 <View className="hidden md:flex flex-row items-center space-x-8">
                     <TouchableOpacity className="hover:text-[#6366f1]">
