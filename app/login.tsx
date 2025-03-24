@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Platform
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
@@ -22,7 +23,7 @@ export default function Login() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch('https://resunext-ai.vercel.app/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,11 +37,11 @@ export default function Login() {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Store the token
-      localStorage.setItem('token', data.token);
+      // Store the token using AsyncStorage
+      await AsyncStorage.setItem('token', data.token);
       
       // Navigate to profile page
-      router.push('/homepage');
+      router.push('/profile');
     } catch (error) {
       alert((error as Error).message || 'An error occurred during login');
     }

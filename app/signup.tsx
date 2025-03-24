@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 
 export default function Signup() {
@@ -16,6 +18,49 @@ export default function Signup() {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const router = useRouter();
+
+  const handleSign = async () => {
+    if (!email || !password || !confirmpassword || !name) {
+      alert("Please fill in all fields");
+      return; 
+    } 
+    if (password !== confirmpassword) {
+      alert("Passwords do not match");
+      return; 
+    }
+    try {
+      const response = await fetch("https://resunext-ai.vercel.app/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            name: name,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+
+      // Store the token using AsyncStorage
+      await AsyncStorage.setItem('token', data.token);
+      
+      console.log("Signup successful:", data);
+      router.push("/profile");
+    }
+    catch (error) {
+      console.error(error);
+      alert((error as Error).message || "An error occurred while signing up");
+      return;
+    }
+  }
 
   return (
     <View className={`flex-1 bg-white p-5 pb-10 ${Platform.OS==="web"?'justify-center items-center ':'justify-center'}`}>
@@ -73,7 +118,7 @@ export default function Signup() {
           autoCapitalize="none"
         />
 
-        <TouchableOpacity className="bg-[#6366F1] rounded-lg p-3.5 items-center mt-2.5 w-full">
+        <TouchableOpacity className="bg-[#6366F1] rounded-lg p-3.5 items-center mt-2.5 w-full"  onPress={()=>handleSign()}>
           <Text className="text-white text-base font-semibold text-center">NEXT</Text>
         </TouchableOpacity>
 
