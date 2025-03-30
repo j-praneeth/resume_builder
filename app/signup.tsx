@@ -150,7 +150,7 @@ export default function Signup() {
         {/* Alredy have account */}
         <View className="flex-row justify-center items-center mt-5 pb-5 px-2.5 py-2.5">
           <Text className="text-[#6B7280] text-base mr-1.5">
-            Already have an account?{" "}
+            Already have an account?{"\nbr"}
           </Text>
           <Text>
           <TouchableOpacity onPress={() => router.push("/login")}>
